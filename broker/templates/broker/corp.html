@@ -1,0 +1,97 @@
+{% extends "broker/layout.html" %} {% block title %}Info {% endblock %} {% load static %} {% block body %}
+
+
+
+<main>
+    <div class="container-fluid">
+        <h1 class="mt-4">Charts</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li id="Xsymb" class="breadcrumb-item active">{{symbol}}</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-body">
+                <a href="{{data.website}}"><img src="{{data.logo.url}}" class="rounded float-left" style="margin-right: 10px; padding-right: 10px;" alt="{{data.companyName}}"></a>
+                <p class="h2">{{data.companyName}} ({{data.exchange}})</p>
+                <p>{{data.description}}</p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Learn More
+                  </button>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+
+                        <ul class="container flex">
+                            {% if data.exchange %}
+                            <li class="item flex-item">
+                                <h4>Exchange: <span class="badge badge-success">{{data.exchange}}</span></h4>
+                            </li>
+                            {% endif %} {% if data.country %}
+
+                            <li class="item flex-item">
+                                <h4>Country: <span class="badge badge-success">{{data.country}}</span></h4>
+                            </li>
+                            {% endif %} {% if data.sector %}
+
+                            <li class="item flex-item">
+                                <h4>Sector: <span class="badge badge-success">{{data.sector}}</span></h4>
+                            </li>
+                            {% endif %} {% if data.state %}
+
+                            <li class="item flex-item">
+                                <h4>State: <span class="badge badge-success">{{data.state}}</span></h4>
+                            </li>
+                            {% endif %} {% if data.address %}
+
+                            <li class="item flex-item">
+                                <h4>Address: <span class="badge badge-success">{{data.address}}</span></h4>
+                            </li>
+                            {% endif %} {% if data.securityName %}
+
+                            <li class="item flex-item">
+                                <h4>Security Name: <span class="badge badge-success">{{data.securityName}}</span></h4>
+                            </li>
+                            {% endif %} {% if data.phone %}
+
+                            <li class="item flex-item">
+                                <h4>Phone: <span class="badge badge-success">{{data.phone}}</span></h4>
+                            </li>
+                            {% endif %} {% if data.CEO %}
+
+                            <li class="item flex-item">
+                                <h4>CEO: <span class="badge badge-success">{{data.CEO}}</span></h4>
+                            </li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-area mr-1"></i> Stock Performance
+            </div>
+            <div class="card-body"><canvas id="corp" width="100%" height="30"></canvas></div>
+            <div id="lastUpdated" class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-pie mr-1"></i> I N V E S T
+                    </div>
+                    <div id="MESSAGE" class="alert alert-success" style="display: none;" role="alert">
+                    </div>
+                    <button id="BUY" class="btn-lg btn-outline-success">Buy For <h5 id="PRICE">500</h5>$</button>
+                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+{% endblock %} {% block script %}
+<script src="{% static 'assets/demo/chart-corp.js' %}"></script>
+<script src="{% static 'assets/demo/trade.js' %}"></script>
+
+{% endblock%}
