@@ -17,5 +17,6 @@ urlpatterns = [
     path("symbols", views.symbols, name="symbols"),
     path("corpData/<str:symbol>", views.corpData, name="corpData"),
     path("buy", views.buy, name="buy"),
+    path("sell", views.sell, name="sell"),
 
 ]

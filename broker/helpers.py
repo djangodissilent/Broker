@@ -29,12 +29,14 @@ def get_company(symbol):
 
 def stats(symbol):
     
-    # data = C.chart(symbol, timeframe="1d")
-    # chart = [{'date':obj['date'], 'close': obj['close']} for obj in data]
-    # last = time.ctime(data[-1]['updated']/10**3)
-    # return {'chart': chart, 'lastUpdated': last}
-    return
-
+    data = C.chart(symbol, timeframe="1y")
+    chart = [{'date':obj['date'], 'close': obj['close']} for obj in data if obj['close']]
+    last = datetime.datetime.now().strftime("%b %-d %Y, %-I:%M %p")
+    latestPrice = chart[-1]['close']
+    
+    return {'chart': chart, 'lastUpdated': last, 'lastPrice': latestPrice}
+    
+# stats('amzn')
 # print(stats('amzn'))
 # stats('amzn')
 def getDays(start):
@@ -54,7 +56,7 @@ def quote(stockNames):
         if name in seen:
             aggr += seen[name]
         else:
-            price = C.quote(name)['iexRealtimePrice']
+            price = C.quote(name)['latestPrice']
             seen[name] = price
             aggr += price
     return aggr    

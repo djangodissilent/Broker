@@ -1,13 +1,13 @@
 const buyBtn = document.getElementById("BUY");
 const symb = document.getElementById("Xsymb").innerText.toLowerCase();
-const price = document.getElementById("PRICE").innerText.toLowerCase();
 // add anonymous fn to call eHandler with params
 buyBtn.addEventListener("click", () => {
-    buy(symb, price);
+    buy(symb);
 })
 
-async function buy(symbol, price) {
-    price = parseInt(price);
+async function buy(symbol) {
+    const priceV = document.getElementById("PRICE").innerText;
+    const price = parseFloat(priceV);
     msgDiv = document.getElementById("MESSAGE");
     msgDiv.style.display = 'block';
 

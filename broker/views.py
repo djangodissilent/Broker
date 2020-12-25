@@ -17,7 +17,12 @@ from .helpers import *
 # add profile summmary 
 def index(request):
     if request.user.is_authenticated:
-        return render(request, "broker/index.html")
+        user = request.user 
+        userStocks = Stock.objects.filter(owner=user)
+        data = [stock.serialize() for stock in userStocks]
+
+
+        return render(request, "broker/index.html", {'data':data})
     else:
         return HttpResponseRedirect(reverse("login"))
 
@@ -51,12 +56,11 @@ def symbols(request):
     return JsonResponse(data, safe=False) 
 
 def corpData(request, symbol):
-    # data = stats(symbol=symbol)
-    # Smax =  round(max([d['close'] for d in data ]))
+    data = stats(symbol=symbol)
+    Smax =  round(max([d['close'] for d in data['chart'] if d['close']]))
 
-    # data += [((Smax // (10**floor(log10(Smax)))) + 1) * 10**floor(log10(Smax))]
-    # return JsonResponse({'data':data.chart, 'last':data.last, 'sMax': data.sMax}, safe=False)
-    return JsonResponse({}, safe=0)
+    sMax = ((Smax // (10**floor(log10(Smax)))) + 1) * 10**floor(log10(Smax))
+    return JsonResponse({'data':data['chart'], 'sMax': sMax , 'lastUpdated':data['lastUpdated'], 'latestPrice': data['lastPrice']}, safe=False)
 
 # buy a stock
 @csrf_exempt
@@ -79,11 +83,15 @@ def buy(request):
         # save datapoint
         # BOTTLE NECK TAKES ALOT OF TIME
         # inORDER TO [QUOTE] EACH STOCK
-        dataPoint = DataPoint(y=getBalance(user.username), owner=user)
+        user.current_balance -= price
+        print("\n\n blnc: ", user.current_balance)
+        user.save()
+        blnc = getBalance(user.username)
+        print("\n\n dPblnc: ", blnc)
+
+        dataPoint = DataPoint(y=blnc, owner=user)
         dataPoint.save()
     
-        user.current_balance -= price
-        user.save()
 
         # print("\n", "Done saving User .." , '\n')
 
@@ -91,6 +99,38 @@ def buy(request):
     else:
         message = 'Transaction Failed'    
 
+
+    return JsonResponse({'message': message}, safe=0)
+
+# buy a stock
+@csrf_exempt
+@login_required
+# BUGs
+def sell(request):
+    if request.method != 'POST':
+        return JsonResponse({"error": "POST required."}, status=400)
+    user = request.user
+    data = json.loads(request.body)
+    # get the stock
+    stockId = data.get('id', "")
+    message = ''
+
+    stock = Stock.objects.get(id=stockId)
+    stockSer = stock.serialize()
+    priceNow = quote([stockSer['symbol']])
+    dif = priceNow - float(stockSer['buy_price'])
+
+    
+    user.current_balance += dif
+    stock.delete()
+    user.save()
+    # save datapoint
+    # BOTTLE NECK TAKES ALOT OF TIME
+    # inORDER TO [QUOTE] EACH STOCK
+    dataPoint = DataPoint(y=getBalance(user.username), owner=user)
+    dataPoint.save()
+
+    message = 'Sold successfully'
 
     return JsonResponse({'message': message}, safe=0)
 

@@ -30,7 +30,9 @@ class Stock(models.Model):
 
     def serialize(self):
         return {
-            'symbol': self.symbol,
+            'id': self.id,
+ 
+            'symbol': self.symbol.upper(),
             'buy_date': self.buy_date.strftime("%b %-d %Y, %-I:%M %p"),
             'owner': self.owner.username,
             'buy_price': self.buy_price,

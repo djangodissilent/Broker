@@ -12,7 +12,7 @@
 
         <div class="card mb-4">
             <div class="card-header">
-                <i class="fas fa-chart-area mr-1"></i> Stock Performance
+                <i class="fas fa-chart-area mr-1"></i> Performance
             </div>
             <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
             <div id="UPD" class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
@@ -27,17 +27,17 @@
                 <div class="card h-auto">
                     <img src="{% static 'bg/android-chrome-512x512.png' %}" class="card-img-top" alt="{% static 'bg/android-chrome-512x512.png' %}">
                     <div class="card-body">
-                        <h5 class="card-title">Balance</h5>
-                        <p class="card-text" id="BALANCE">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <h3 class="card-title">Balance</h3>
+                        <p class="card-text" id="BALANCE">Fetching Balance..</p>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card h-auto">
-                    <img src="{% static 'bg/android-chrome-512x512.png' %}" class="card-img-top" alt="{% static 'bg/android-chrome-512x512.png' %}">
+                    <img src="{% static 'bg/2.png' %}" class="card-img-top" alt="{% static 'bg/android-chrome-512x512.png' %}">
                     <div class="card-body">
-                        <h5 class="card-title">Change</h5>
-                        <p class="card-text" id="CHANGE">This is a short card.</p>
+                        <h3 class="card-title">Change</h3>
+                        <p class="card-text" id="CHANGE">Fetching Change..</p>
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
     </div>
     <div class="card mb-4">
         <div class="card-header">
-            <i class="fas fa-table mr-1"></i> DataTable Example
+            <i class="fas fa-table mr-1"></i> Stocks DataTable
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -58,53 +58,44 @@
 
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>Symbol</th>
+                            <th>Bought At</th>
+                            <th>Buy Price</th>
+                            <th>sell</th>
+                            <th>ID</th>
+
                         </tr>
                     </thead>
 
                     <tfoot>
                         <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>Symbol</th>
+                            <th>Bought At</th>
+                            <th>Buy Price</th>
+                            <th>sell</th>
+                            <th>ID</th>
+
                         </tr>
                     </tfoot>
                     <tbody>
 
-
+                        <!-- table data -->
+                        {% for stock in data %}
                         <tr>
-                            <td>Jennifer Chang</td>
-                            <td>Regional Director</td>
-                            <td>Singapore</td>
-                            <td>28</td>
-                            <td>2010/11/14</td>
-                            <td>$357,650</td>
+                            <td>
+                                <h1> {{stock.symbol}}</h1>
+                            </td>
+                            <td>{{stock.buy_date}}</td>
+                            <td>
+                                <h5 style="display: inline;"> {{stock.buy_price}}</h5>
+                                <h4 style="display: inline;"> $</h4>
+                            </td>
+                            <td> <button id="{{ stock.id }}" class="btn btn-danger">SELL</button> </td>
+                            <td>
+                                <h6> {{stock.id}}</h6>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>Brenden Wagner</td>
-                            <td>Software Engineer</td>
-                            <td>San Francisco</td>
-                            <td>28</td>
-                            <td>2011/06/07</td>
-                            <td>$206,850</td>
-                        </tr>
-                        <tr>
-                            <td>Fiona Green</td>
-                            <td>Chief Operating Officer (COO)</td>
-                            <td>San Francisco</td>
-                            <td>48</td>
-                            <td>2010/03/11</td>
-                            <td>$850,000</td>
-                        </tr>
-
+                        {% endfor %}
                     </tbody>
                 </table>
 

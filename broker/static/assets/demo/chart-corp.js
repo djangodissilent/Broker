@@ -10,20 +10,23 @@ const symbol = document.getElementById("Xsymb").innerText.toLowerCase();
 companyData()
     .then((cData) => {
         //USE cDATA
-        // lastUpdate = cData.last;
-        //last PRICE GOES HERE
-        // const price = document.getElementById("PRICE");
-        //price.innerText = cData['price]
 
-        lastUpdate = d[d.length - 1]['data'];
-        document.getElementById("lastUpdated").innerText = lastUpdate;
-        // document.getElementById("lastUpdated1").innerText = lastUpdate;
+        const sMax = cData.sMAx;
+        const latestPrice = cData.latestPrice;
+        const lastUpdate = cData.lastUpdated;
+
+
+        //last PRICE GOES HERE
+        const priceLabel = document.getElementById("PRICE");
+        priceLabel.innerHTML = `<h1  style="display:inline; "> ${latestPrice} </h1>`;
+
+        document.getElementById("lastUpdated").innerText = `Updated At ${cData.lastUpdated}`;
+        document.getElementById("U2").innerText = `Updated At ${cData.lastUpdated}`;
 
 
         // sMax = d.sMax;
-        sMax = 4000;
-        const lbls = d.map(obj => obj.date);
-        const data = d.map(obj => obj.close);
+        const lbls = cData.data.map(obj => obj.date);
+        const data = cData.data.map(obj => obj.close);
 
         console.log(data);
         console.log(lbls);
