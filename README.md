@@ -48,6 +48,7 @@ by keeping a **dictionary** of alraedy quoted stocks.
 ![Alt text](broker/images/scrshots/5.png?raw=true "Title")
 
 
+
 - [x] **Mobile Responsive** 
 
     Broker is mobile friendly this is acheived using the CSS Media quieries
