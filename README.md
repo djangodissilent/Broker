@@ -12,7 +12,8 @@
 ## Django
 
 ![Alt text](broker/images/scrshots/djngo.png?raw=true "Title") 
-    
+![Alt text](broker/images/scrshots/Screenshot 2021-08-08 225706.png?raw=true "Title") 
+
 ## chart.JS 
 
 ![Alt text](broker/images/scrshots/chrt.png?raw=true "Title")
