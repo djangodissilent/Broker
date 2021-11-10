@@ -4,7 +4,7 @@
 
 ![Alt text](broker/images/scrshots/3.png?raw=true "Title")
 
-### A Stock Trading Website.
+### A Virtual Stock Trading Website that allow users to but and sell stocks in real time using the IEX API.
 
 
 # FrameWorks
