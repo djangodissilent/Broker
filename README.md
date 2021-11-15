@@ -4,7 +4,7 @@
 
 ![Alt text](broker/images/scrshots/3.png?raw=true "Title")
 
-### A Virtual Stock Trading Website that allows users to buy and sell stocks in real-time using the IEX API.
+A Virtual Stock Trading Website that allows users to buy and sell stocks in real-time using the IEX API.
 
 
 # FrameWorks
@@ -23,8 +23,7 @@
 
 ### Features
 - [x] **Live Stock Data**
-    Levraging the API the user can get realTime date about a given stock price through quoting.
-
+    Leveraging the API, the user can get realTime data about a given stock price through quoting.
 
 ![Alt text](broker/images/scrshots/6.png?raw=true "Title")
 
